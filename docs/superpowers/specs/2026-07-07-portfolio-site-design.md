@@ -24,6 +24,7 @@ portfolio/
     globals.css
   components/
     Hero.tsx
+    Terminal.tsx      # NEW (v2): terminal-styled achievements/pokedex easter egg
     About.tsx
     Skills.tsx
     Projects.tsx
@@ -59,9 +60,17 @@ type Profile = {
   github: string;
   linkedin: string;
   email: string;
+  location: string;    // NEW (v2): e.g. "Brazil"
+  timezone: string;    // NEW (v2): e.g. "UTC-3"
+};
+
+type Achievement = {   // NEW (v2)
+  name: string;         // e.g. "Pull Shark"
+  imageUrl: string;     // official GitHub achievement badge image URL
 };
 
 // skills: string[] — flat list of technology names shown as badges
+// achievements: Achievement[] — NEW (v2), real badges from the user's GitHub profile
 ```
 
 ## Confirmed Content
@@ -69,10 +78,17 @@ type Profile = {
 **Profile**
 - Name: Fernando Barbosa
 - Title: Software Engineer
-- Bio: "I am a developer with many years of experience developing scalable, high-impact solutions."
+- Bio (v2 rewrite, replaces the old placeholder bio, based on the user's real GitHub profile README — used by both Hero and About, same as v1's architecture): "Back-end developer with 5+ years of experience building scalable systems in Node.js and TypeScript — microservices architecture, Express APIs, and message-driven systems with RabbitMQ. Beyond my day-to-day work, I contribute to open source: 6 merged contributions across 4 public repositories, from CI/CD pipelines to logging infrastructure and code-quality tooling."
 - GitHub: https://github.com/fernandoobarbosa
 - LinkedIn: https://www.linkedin.com/in/fernando-barbosa-a790771b8/
 - Email: fernandobarbosa1697@gmail.com
+- Location: Brazil (🇧🇷) — NEW (v2)
+- Timezone: UTC-3 — NEW (v2)
+
+**GitHub Achievements (v2, real badges confirmed present on github.com/fernandoobarbosa)**
+- YOLO — `https://github.githubassets.com/assets/yolo-default-be0bbff04951.png`
+- Pull Shark — `https://github.githubassets.com/assets/pull-shark-default-498c279a747d.png`
+- Quickdraw — `https://github.githubassets.com/assets/quickdraw-default-39c6aec8ff89.png`
 
 **Skills**
 - Node.js, TypeScript, JavaScript, Go, React, Java, Docker
@@ -95,25 +111,29 @@ type Profile = {
 
 ## Page Sections
 
-1. **Hero** — name, "Software Engineer", bio, contact icon-links (GitHub/LinkedIn/Email).
-2. **About** — expanded bio paragraph.
-3. **Skills** — badges for each technology (Node.js, TypeScript, Go, React, Java, Docker), same badge style as the project-card language tags.
-4. **Projects** — grid of project cards (one per repo). Each card shows repo name, description, language badge, star count, repo link, and a nested list of the specific contributions (title + link) for that repo.
-5. **Contact** — footer-style repeat of contact links.
+1. **Hero** — status badge (`● OPEN TO REMOTE ROLES · 🇧🇷 BRAZIL · UTC-3`, pulsing accent dot), name, "Software Engineer" title, bio, inline tech-stack line, three CTA buttons (Email me / GitHub / LinkedIn — filled + outlined styles), and a "proof of work" stats line built from real `projects` data (e.g. `ProjectStack 4★ · bitbucket-pr-reviewer 4★ · ob 2★ · RBAC 1 PR merged`).
+2. **Terminal** (NEW v2) — a terminal-window-styled component directly below Hero: mac-style dot controls, monospace `$ whoami` / `$ cat achievements.log` / `$ pokedex --trainer` prompts, rendering the real GitHub achievement badges and a final "Type: Backend/DevOps ⚡ · Region: Brazil 🇧🇷" line (the Pokémon easter egg). Blinking cursor via CSS, respecting `prefers-reduced-motion`.
+3. **About** — the v2 rewritten bio paragraph (see Confirmed Content above).
+4. **Skills** — badges for each technology (Node.js, TypeScript, JavaScript, Go, React, Java, Docker), same badge style as the project-card language tags.
+5. **Projects** — grid of project cards (one per repo). Each card shows repo name, description, language badge, star count, repo link, and a nested list of the specific contributions (title + link) for that repo.
+6. **Contact** — footer-style repeat of contact links.
 
 ## Visual Design
 
-- Near-black background (`#0a0a0a`), off-white text, one accent color (electric blue or lime green) used sparingly for links/hover states.
-- Geist Sans for body text, Geist Mono for name/labels/technical bits (terminal-like feel).
+- Near-black background (`#0a0a0a`), off-white text, **accent color: purple/violet `#a78bfa`** (v2 — replaces the original blue `#38bdf8`, changed because the user wanted a different palette from the johnenrique.tech reference site that inspired the v2 redesign).
+- Geist Sans for body text, Geist Mono for name/labels/technical bits and the entire Terminal component (terminal-like feel, reinforced in v2 by the "more tech" request).
 - Cards: 1px subtle border, border brightens to accent color on hover. No heavy shadows, no glassmorphism.
 - Fixed dark theme (no light/dark toggle — out of scope).
+- Favicon: `⚡` (lightning bolt) — doubles as a "fast/tech" signal and a subtle Pikachu nod (v2 Pokémon easter egg, kept deliberately understated per user's "subtle easter egg" choice).
 
 ## Non-Goals
 
-- No CMS or GitHub API fetching (manual content only, per decision).
-- No blog, no additional sections beyond Hero/About/Skills/Projects/Contact.
+- No CMS or GitHub API fetching for project/contribution data (manual content only, per decision). GitHub achievement badge images (v2) are an exception: they're static, stable, publicly-hosted image URLs on `github.githubassets.com`, hand-curated the same way as project data — not a runtime API call.
+- No blog, no additional sections beyond Hero/Terminal/About/Skills/Projects/Contact.
 - No light theme / theme toggle.
-- No client-side routing beyond the single page (may add simple in-page anchor nav).
+- No client-side routing beyond the single page (in-page anchor nav via `Nav.tsx`).
+- No heavy Pokémon theming — v2's Pokémon reference is limited to the Terminal component's `pokedex` line and the favicon; no color/illustration theme change.
+- No EN/PT language toggle (unlike the reference site) — out of scope for this redesign.
 
 ## Deployment
 
