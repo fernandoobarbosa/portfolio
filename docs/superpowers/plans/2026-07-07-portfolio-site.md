@@ -17,6 +17,7 @@
 - Colors (defined once in Task 3, reused everywhere): background `#0a0a0a`, foreground `#ededed`, accent `#38bdf8`, border `#262626`.
 - Fonts: Geist Sans (body), Geist Mono (headings/labels), loaded via `next/font/google`.
 - Package manager: npm.
+- Icons: the installed `lucide-react` version (1.23.0) does not export brand/logo icons (`Github`, `Linkedin` do not exist in this version — confirmed during Task 5). `Mail`, `Star`, and `ExternalLink` DO exist and should still be imported from `lucide-react`. For GitHub and LinkedIn glyphs, use the hand-written SVG components in `components/icons.tsx` (created in Task 5) instead.
 
 ---
 
@@ -401,16 +402,56 @@ git commit -m "feat: configure root layout with fonts and metadata"
 ### Task 5: Hero component
 
 **Files:**
+- Create: `portfolio/components/icons.tsx`
 - Create: `portfolio/components/Hero.tsx`
 
 **Interfaces:**
 - Consumes: `profile` from `@/content` (fields: `name`, `title`, `bio`, `github`, `linkedin`, `email`).
-- Produces: default-exported `Hero` component, no props, `id="hero"`.
+- Produces: default-exported `Hero` component, no props, `id="hero"`. Named exports `GithubIcon({ size?: number })` and `LinkedinIcon({ size?: number })` from `components/icons.tsx`, reused by Task 9's Contact component.
 
-- [ ] **Step 1: Create `components/Hero.tsx`**
+- [ ] **Step 1: Create `components/icons.tsx`**
+
+The installed `lucide-react` version does not include brand/logo icons, so GitHub and LinkedIn glyphs are hand-written inline SVGs matching lucide's `size` prop convention:
 
 ```tsx
-import { Github, Linkedin, Mail } from "lucide-react";
+type IconProps = {
+  size?: number;
+};
+
+export function GithubIcon({ size = 20 }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.26 5.68.42.36.78 1.08.78 2.18 0 1.58-.01 2.85-.01 3.24 0 .31.2.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z" />
+    </svg>
+  );
+}
+
+export function LinkedinIcon({ size = 20 }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z" />
+    </svg>
+  );
+}
+```
+
+- [ ] **Step 2: Create `components/Hero.tsx`**
+
+```tsx
+import { Mail } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { profile } from "@/content";
 
 export default function Hero() {
@@ -437,7 +478,7 @@ export default function Hero() {
           aria-label="GitHub"
           className="rounded-md border border-border p-3 transition-colors hover:border-accent hover:text-accent"
         >
-          <Github size={20} />
+          <GithubIcon size={20} />
         </a>
         <a
           href={profile.linkedin}
@@ -446,7 +487,7 @@ export default function Hero() {
           aria-label="LinkedIn"
           className="rounded-md border border-border p-3 transition-colors hover:border-accent hover:text-accent"
         >
-          <Linkedin size={20} />
+          <LinkedinIcon size={20} />
         </a>
         <a
           href={`mailto:${profile.email}`}
@@ -461,7 +502,7 @@ export default function Hero() {
 }
 ```
 
-- [ ] **Step 2: Temporarily render it in `page.tsx` to verify**
+- [ ] **Step 3: Temporarily render it in `page.tsx` to verify**
 
 Replace `portfolio/app/page.tsx` contents with:
 ```tsx
@@ -476,7 +517,7 @@ export default function Home() {
 }
 ```
 
-- [ ] **Step 3: Run the dev server and visually confirm**
+- [ ] **Step 4: Run the dev server and visually confirm**
 
 ```bash
 cd "/c/Users/Fernando Barbosa/Documents/portfolio"
@@ -484,7 +525,7 @@ npm run dev
 ```
 Open `http://localhost:3000` in a browser. Confirm: dark background, name and title in large mono/sans type, bio text, three icon buttons (GitHub/LinkedIn/Mail) that highlight in accent blue on hover and open the correct destinations. Stop the server (Ctrl+C) when done.
 
-- [ ] **Step 4: Run a full build to confirm no type/build errors**
+- [ ] **Step 5: Run a full build to confirm no type/build errors**
 
 ```bash
 cd "/c/Users/Fernando Barbosa/Documents/portfolio"
@@ -492,11 +533,11 @@ npm run build
 ```
 Expected: `Compiled successfully`.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 cd "/c/Users/Fernando Barbosa/Documents/portfolio"
-git add components/Hero.tsx app/page.tsx
+git add components/icons.tsx components/Hero.tsx app/page.tsx
 git commit -m "feat: add Hero section"
 ```
 
@@ -790,13 +831,14 @@ git commit -m "feat: add Projects section with contribution cards"
 - Modify: `portfolio/app/page.tsx`
 
 **Interfaces:**
-- Consumes: `profile` from `@/content` (in `Contact.tsx`).
+- Consumes: `profile` from `@/content` (in `Contact.tsx`); `GithubIcon`, `LinkedinIcon` from `@/components/icons` (created in Task 5).
 - Produces: default-exported `Contact` (no props, `id="contact"`) and default-exported `Footer` (no props).
 
 - [ ] **Step 1: Create `components/Contact.tsx`**
 
 ```tsx
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { profile } from "@/content";
 
 export default function Contact() {
@@ -818,7 +860,7 @@ export default function Contact() {
           rel="noreferrer"
           className="flex items-center gap-2 hover:text-accent"
         >
-          <Github size={16} /> GitHub
+          <GithubIcon size={16} /> GitHub
         </a>
         <a
           href={profile.linkedin}
@@ -826,7 +868,7 @@ export default function Contact() {
           rel="noreferrer"
           className="flex items-center gap-2 hover:text-accent"
         >
-          <Linkedin size={16} /> LinkedIn
+          <LinkedinIcon size={16} /> LinkedIn
         </a>
         <a
           href={`mailto:${profile.email}`}

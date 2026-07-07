@@ -10,7 +10,7 @@ A fast, lightweight, visually polished personal portfolio for Fernando Barbosa (
 - **TypeScript**
 - **Tailwind CSS** for styling (utility classes, no runtime CSS-in-JS cost)
 - **Geist Sans + Geist Mono** via `next/font` (self-hosted, no external font requests, matches the dark/tech aesthetic)
-- **lucide-react** for icons (GitHub, LinkedIn, Mail, Star), tree-shakeable
+- **lucide-react** for generic icons (Mail, Star, ExternalLink), tree-shakeable. The installed version doesn't ship brand/logo icons, so GitHub and LinkedIn glyphs are small hand-written inline SVGs in `components/icons.tsx` instead.
 - No animation library — CSS transitions only, respecting `prefers-reduced-motion`
 - Content (profile + projects/contributions) lives in a single typed `content.ts` file, not fetched from any API. Manual curation, matching the current scope (a handful of hand-picked contributions).
 
