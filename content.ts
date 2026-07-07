@@ -19,15 +19,24 @@ export type Profile = {
   github: string;
   linkedin: string;
   email: string;
+  location: string;
+  timezone: string;
+};
+
+export type Achievement = {
+  name: string;
+  imageUrl: string;
 };
 
 export const profile: Profile = {
   name: "Fernando Barbosa",
   title: "Software Engineer",
-  bio: "I am a developer with many years of experience developing scalable, high-impact solutions.",
+  bio: "Back-end developer with 5+ years of experience building scalable systems in Node.js and TypeScript — microservices architecture, Express APIs, and message-driven systems with RabbitMQ. Beyond my day-to-day work, I contribute to open source: 6 merged contributions across 4 public repositories, from CI/CD pipelines to logging infrastructure and code-quality tooling.",
   github: "https://github.com/fernandoobarbosa",
   linkedin: "https://www.linkedin.com/in/fernando-barbosa-a790771b8/",
   email: "fernandobarbosa1697@gmail.com",
+  location: "Brazil",
+  timezone: "UTC-3",
 };
 
 export const skills: string[] = [
@@ -38,6 +47,24 @@ export const skills: string[] = [
   "React",
   "Java",
   "Docker",
+];
+
+export const achievements: Achievement[] = [
+  {
+    name: "YOLO",
+    imageUrl:
+      "https://github.githubassets.com/assets/yolo-default-be0bbff04951.png",
+  },
+  {
+    name: "Pull Shark",
+    imageUrl:
+      "https://github.githubassets.com/assets/pull-shark-default-498c279a747d.png",
+  },
+  {
+    name: "Quickdraw",
+    imageUrl:
+      "https://github.githubassets.com/assets/quickdraw-default-39c6aec8ff89.png",
+  },
 ];
 
 export const projects: Project[] = [
