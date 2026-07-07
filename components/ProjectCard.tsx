@@ -8,13 +8,13 @@ export default function ProjectCard({ project }: { project: Project }) {
         <a
           href={project.url}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="font-mono text-lg font-semibold hover:text-accent"
         >
           {project.name}
         </a>
         <div className="flex items-center gap-1 text-sm text-foreground/50">
-          <Star size={14} />
+          <Star size={14} aria-hidden="true" />
           {project.stars}
         </div>
       </div>
@@ -28,7 +28,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             <a
               href={contribution.url}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent"
             >
               <ExternalLink size={14} />

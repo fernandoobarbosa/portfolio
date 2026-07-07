@@ -22,7 +22,7 @@ export default function Hero() {
         <a
           href={profile.github}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           aria-label="GitHub"
           className="rounded-md border border-border p-3 transition-colors hover:border-accent hover:text-accent"
         >
@@ -31,7 +31,7 @@ export default function Hero() {
         <a
           href={profile.linkedin}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           aria-label="LinkedIn"
           className="rounded-md border border-border p-3 transition-colors hover:border-accent hover:text-accent"
         >

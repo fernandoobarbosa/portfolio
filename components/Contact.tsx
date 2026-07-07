@@ -18,7 +18,7 @@ export default function Contact() {
         <a
           href={profile.github}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="flex items-center gap-2 hover:text-accent"
         >
           <GithubIcon size={16} /> GitHub
@@ -26,7 +26,7 @@ export default function Contact() {
         <a
           href={profile.linkedin}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="flex items-center gap-2 hover:text-accent"
         >
           <LinkedinIcon size={16} /> LinkedIn
@@ -35,7 +35,7 @@ export default function Contact() {
           href={`mailto:${profile.email}`}
           className="flex items-center gap-2 hover:text-accent"
         >
-          <Mail size={16} /> {profile.email}
+          <Mail size={16} aria-hidden="true" /> {profile.email}
         </a>
       </div>
     </section>

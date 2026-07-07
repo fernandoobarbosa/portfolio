@@ -7,7 +7,17 @@
   --color-border: #262626;
 }
 
+html {
+  scroll-padding-top: 5rem;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+  }
 }
