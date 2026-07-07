@@ -4,7 +4,7 @@
 
 **Goal:** Build and ship a fast, static, dark-themed portfolio site for Fernando Barbosa on Next.js, showcasing curated GitHub contributions, ready to deploy on Vercel.
 
-**Architecture:** Next.js 15 App Router with `output: 'export'` (fully static, no server runtime). Tailwind CSS v4 for styling via design tokens. Content lives in one typed `content.ts` module. Five presentational components compose a single page.
+**Architecture:** Next.js 15 App Router with `output: 'export'` (fully static, no server runtime). Tailwind CSS v4 for styling via design tokens. Content lives in one typed `content.ts` module. A handful of small presentational components compose a single page.
 
 **Tech Stack:** Next.js 15, TypeScript, Tailwind CSS v4, next/font (Geist Sans/Mono), lucide-react.
 
@@ -97,7 +97,7 @@ git commit -m "chore: scaffold Next.js app with static export"
 - Create: `portfolio/content.ts`
 
 **Interfaces:**
-- Produces: `Profile`, `Project`, `Contribution` types, and `profile: Profile`, `projects: Project[]` exports, all importable as `@/content`. These are the only data source every later component reads from.
+- Produces: `Profile`, `Project`, `Contribution` types, and `profile: Profile`, `skills: string[]`, `projects: Project[]` exports, all importable as `@/content`. These are the only data source every later component reads from.
 
 - [ ] **Step 1: Write `content.ts` with types and intentionally incomplete data (the "failing test")**
 
@@ -132,6 +132,16 @@ export const profile: Profile = {
   github: "https://github.com/fernandoobarbosa",
   linkedin: "https://www.linkedin.com/in/fernando-barbosa-a790771b8/",
 };
+
+export const skills: string[] = [
+  "Node.js",
+  "TypeScript",
+  "JavaScript",
+  "Go",
+  "React",
+  "Java",
+  "Docker",
+];
 
 export const projects: Project[] = [];
 ```
@@ -179,6 +189,16 @@ export const profile: Profile = {
   linkedin: "https://www.linkedin.com/in/fernando-barbosa-a790771b8/",
   email: "fernandobarbosa1697@gmail.com",
 };
+
+export const skills: string[] = [
+  "Node.js",
+  "TypeScript",
+  "JavaScript",
+  "Go",
+  "React",
+  "Java",
+  "Docker",
+];
 
 export const projects: Project[] = [
   {
@@ -553,7 +573,87 @@ git commit -m "feat: add About section"
 
 ---
 
-### Task 7: ProjectCard and Projects components
+### Task 7: Skills component
+
+**Files:**
+- Create: `portfolio/components/Skills.tsx`
+- Modify: `portfolio/app/page.tsx`
+
+**Interfaces:**
+- Consumes: `skills: string[]` from `@/content`.
+- Produces: default-exported `Skills` component, no props, `id="skills"`.
+
+- [ ] **Step 1: Create `components/Skills.tsx`**
+
+```tsx
+import { skills } from "@/content";
+
+export default function Skills() {
+  return (
+    <section id="skills" className="border-t border-border px-6 py-24 md:px-12">
+      <h2 className="mb-8 font-mono text-sm uppercase tracking-widest text-accent">
+        02. Skills
+      </h2>
+      <div className="flex flex-wrap gap-3">
+        {skills.map((skill) => (
+          <span
+            key={skill}
+            className="rounded-full border border-border px-4 py-2 font-mono text-sm text-foreground/70"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+- [ ] **Step 2: Add it to `page.tsx`**
+
+```tsx
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Skills from "@/components/Skills";
+
+export default function Home() {
+  return (
+    <main>
+      <Hero />
+      <About />
+      <Skills />
+    </main>
+  );
+}
+```
+
+- [ ] **Step 3: Visually verify**
+
+```bash
+cd "/c/Users/Fernando Barbosa/Documents/portfolio"
+npm run dev
+```
+Open `http://localhost:3000`, scroll to Skills. Confirm an "02. Skills" section appears below About showing 7 pill-shaped badges (Node.js, TypeScript, JavaScript, Go, React, Java, Docker) that wrap onto multiple lines on a narrow browser width. Stop the server when done.
+
+- [ ] **Step 4: Run a full build**
+
+```bash
+cd "/c/Users/Fernando Barbosa/Documents/portfolio"
+npm run build
+```
+Expected: `Compiled successfully`.
+
+- [ ] **Step 5: Commit**
+
+```bash
+cd "/c/Users/Fernando Barbosa/Documents/portfolio"
+git add components/Skills.tsx app/page.tsx
+git commit -m "feat: add Skills section"
+```
+
+---
+
+### Task 8: ProjectCard and Projects components
 
 **Files:**
 - Create: `portfolio/components/ProjectCard.tsx`
@@ -624,7 +724,7 @@ export default function Projects() {
       className="border-t border-border px-6 py-24 md:px-12"
     >
       <h2 className="mb-8 font-mono text-sm uppercase tracking-widest text-accent">
-        02. Projects & Contributions
+        03. Projects & Contributions
       </h2>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {projects.map((project) => (
@@ -641,6 +741,7 @@ export default function Projects() {
 ```tsx
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 
 export default function Home() {
@@ -648,6 +749,7 @@ export default function Home() {
     <main>
       <Hero />
       <About />
+      <Skills />
       <Projects />
     </main>
   );
@@ -680,7 +782,7 @@ git commit -m "feat: add Projects section with contribution cards"
 
 ---
 
-### Task 8: Contact and Footer components
+### Task 9: Contact and Footer components
 
 **Files:**
 - Create: `portfolio/components/Contact.tsx`
@@ -704,7 +806,7 @@ export default function Contact() {
       className="border-t border-border px-6 py-24 md:px-12"
     >
       <h2 className="mb-4 font-mono text-sm uppercase tracking-widest text-accent">
-        03. Contact
+        04. Contact
       </h2>
       <p className="max-w-xl text-foreground/60">
         Feel free to reach out through any of the channels below.
@@ -757,6 +859,7 @@ export default function Footer() {
 ```tsx
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -766,6 +869,7 @@ export default function Home() {
     <main>
       <Hero />
       <About />
+      <Skills />
       <Projects />
       <Contact />
       <Footer />
@@ -780,7 +884,7 @@ export default function Home() {
 cd "/c/Users/Fernando Barbosa/Documents/portfolio"
 npm run dev
 ```
-Open `http://localhost:3000`, scroll to the bottom. Confirm the "03. Contact" section shows GitHub/LinkedIn/Email links with icons that turn accent blue on hover, and a small footer line below it. Stop the server when done.
+Open `http://localhost:3000`, scroll to the bottom. Confirm the "04. Contact" section shows GitHub/LinkedIn/Email links with icons that turn accent blue on hover, and a small footer line below it. Stop the server when done.
 
 - [ ] **Step 5: Run a full build**
 
@@ -800,7 +904,7 @@ git commit -m "feat: add Contact section and footer"
 
 ---
 
-### Task 9: In-page navigation, final responsive check, and README
+### Task 10: In-page navigation, final responsive check, and README
 
 **Files:**
 - Create: `portfolio/components/Nav.tsx`
@@ -808,7 +912,7 @@ git commit -m "feat: add Contact section and footer"
 - Modify: `portfolio/README.md`
 
 **Interfaces:**
-- Consumes: nothing (static anchor links to `#hero`, `#about`, `#projects`, `#contact`, defined as `id` attributes in Tasks 5–8).
+- Consumes: nothing (static anchor links to `#hero`, `#about`, `#skills`, `#projects`, `#contact`, defined as `id` attributes in Tasks 5–9).
 - Produces: default-exported `Nav` component, no props, fixed to the top of the page.
 
 - [ ] **Step 1: Create `components/Nav.tsx`**
@@ -816,6 +920,7 @@ git commit -m "feat: add Contact section and footer"
 ```tsx
 const links = [
   { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
   { href: "#contact", label: "Contact" },
 ];
@@ -839,6 +944,7 @@ export default function Nav() {
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -850,6 +956,7 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <Skills />
         <Projects />
         <Contact />
         <Footer />
@@ -865,7 +972,7 @@ export default function Home() {
 cd "/c/Users/Fernando Barbosa/Documents/portfolio"
 npm run dev
 ```
-Open `http://localhost:3000`. Confirm: a fixed translucent nav bar with "About / Projects / Contact" links that scroll to the right sections; resize the browser to a narrow (mobile) width and confirm the Projects grid collapses to one column and no horizontal scrollbar appears anywhere on the page. Stop the server when done.
+Open `http://localhost:3000`. Confirm: a fixed translucent nav bar with "About / Skills / Projects / Contact" links that scroll to the right sections; resize the browser to a narrow (mobile) width and confirm the Projects grid and Skills badges collapse cleanly and no horizontal scrollbar appears anywhere on the page. Stop the server when done.
 
 - [ ] **Step 4: Write `README.md`**
 

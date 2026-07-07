@@ -25,6 +25,7 @@ portfolio/
   components/
     Hero.tsx
     About.tsx
+    Skills.tsx
     Projects.tsx
     ProjectCard.tsx
     Contact.tsx
@@ -59,6 +60,8 @@ type Profile = {
   linkedin: string;
   email: string;
 };
+
+// skills: string[] — flat list of technology names shown as badges
 ```
 
 ## Confirmed Content
@@ -70,6 +73,9 @@ type Profile = {
 - GitHub: https://github.com/fernandoobarbosa
 - LinkedIn: https://www.linkedin.com/in/fernando-barbosa-a790771b8/
 - Email: fernandobarbosa1697@gmail.com
+
+**Skills**
+- Node.js, TypeScript, JavaScript, Go, React, Java, Docker
 
 **Projects & Contributions**
 
@@ -91,8 +97,9 @@ type Profile = {
 
 1. **Hero** — name, "Software Engineer", bio, contact icon-links (GitHub/LinkedIn/Email).
 2. **About** — expanded bio paragraph.
-3. **Projects** — grid of project cards (one per repo). Each card shows repo name, description, language badge, star count, repo link, and a nested list of the specific contributions (title + link) for that repo.
-4. **Contact** — footer-style repeat of contact links.
+3. **Skills** — badges for each technology (Node.js, TypeScript, Go, React, Java, Docker), same badge style as the project-card language tags.
+4. **Projects** — grid of project cards (one per repo). Each card shows repo name, description, language badge, star count, repo link, and a nested list of the specific contributions (title + link) for that repo.
+5. **Contact** — footer-style repeat of contact links.
 
 ## Visual Design
 
@@ -104,7 +111,7 @@ type Profile = {
 ## Non-Goals
 
 - No CMS or GitHub API fetching (manual content only, per decision).
-- No blog, no additional sections beyond Hero/About/Projects/Contact.
+- No blog, no additional sections beyond Hero/About/Skills/Projects/Contact.
 - No light theme / theme toggle.
 - No client-side routing beyond the single page (may add simple in-page anchor nav).
 
