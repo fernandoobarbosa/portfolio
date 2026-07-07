@@ -40,7 +40,7 @@ export default function Hero() {
           className="flex items-center gap-2 rounded-md border border-border px-5 py-3 font-mono text-sm transition-colors hover:border-accent hover:text-accent"
         >
           <GithubIcon size={16} />
-          GitHub ↗
+          GitHub <span aria-hidden="true">↗</span>
         </a>
         <a
           href={profile.linkedin}
@@ -49,20 +49,25 @@ export default function Hero() {
           className="flex items-center gap-2 rounded-md border border-border px-5 py-3 font-mono text-sm transition-colors hover:border-accent hover:text-accent"
         >
           <LinkedinIcon size={16} />
-          LinkedIn ↗
+          LinkedIn <span aria-hidden="true">↗</span>
         </a>
       </div>
       <div className="flex flex-wrap gap-x-6 gap-y-2 border-t border-border pt-6 font-mono text-xs text-foreground/40">
         {projects.map((project) => {
           const label =
             project.stars > 0
-              ? `${project.stars}★`
+              ? `${project.stars} star${project.stars > 1 ? "s" : ""}`
               : `${project.contributions.length} PR${
                   project.contributions.length > 1 ? "s" : ""
                 } merged`;
+          const display =
+            project.stars > 0 ? `${project.stars}★` : label;
           return (
             <span key={project.url}>
-              {project.name} <span className="text-accent">{label}</span>
+              {project.name}{" "}
+              <span className="text-accent" aria-label={label}>
+                <span aria-hidden="true">{display}</span>
+              </span>
             </span>
           );
         })}

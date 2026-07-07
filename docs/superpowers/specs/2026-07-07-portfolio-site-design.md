@@ -49,7 +49,7 @@ type Project = {
   url: string;                // repo URL
   description: string;        // repo's own GitHub description
   language: string;           // primary language, shown as a badge
-  stars?: number;
+  stars: number;              // required — Hero's proof-of-work line branches on `stars > 0`
   contributions: Contribution[];
 };
 

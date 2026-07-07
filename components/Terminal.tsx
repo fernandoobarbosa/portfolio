@@ -22,7 +22,7 @@ export default function Terminal() {
           <div>
             <p className="text-accent">$ whoami</p>
             <p className="text-foreground/70">
-              {profile.name.toLowerCase().replace(" ", "-")} —{" "}
+              {profile.name.toLowerCase().replaceAll(" ", "-")} —{" "}
               {profile.title.toLowerCase()}
             </p>
           </div>
