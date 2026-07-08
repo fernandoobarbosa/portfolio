@@ -28,6 +28,11 @@ export type Achievement = {
   imageUrl: string;
 };
 
+export type HallOfFame = {
+  game: string;
+  trainerCardImage: string;
+};
+
 export const profile: Profile = {
   name: "Fernando Barbosa",
   title: "Software Engineer",
@@ -66,6 +71,11 @@ export const achievements: Achievement[] = [
       "https://github.githubassets.com/assets/quickdraw-default-39c6aec8ff89.png",
   },
 ];
+
+export const hallOfFame: HallOfFame = {
+  game: "Pokemon Yellow Legacy",
+  trainerCardImage: "/trainer-card.png",
+};
 
 export const projects: Project[] = [
   {

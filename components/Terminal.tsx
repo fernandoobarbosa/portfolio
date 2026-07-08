@@ -1,4 +1,4 @@
-import { achievements, profile } from "@/content";
+import { achievements, hallOfFame, profile } from "@/content";
 
 export default function Terminal() {
   return (
@@ -48,6 +48,19 @@ export default function Terminal() {
             <p className="text-foreground/70">
               Type: Backend/DevOps ⚡ · Region: {profile.location} 🇧🇷
             </p>
+          </div>
+          <div>
+            <p className="text-accent">$ cat trainer-card.png</p>
+            <div className="mt-2 flex flex-col items-start gap-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={hallOfFame.trainerCardImage}
+                alt={`Trainer card from ${hallOfFame.game}`}
+                width={160}
+                className="rounded border border-border"
+              />
+              <p className="text-foreground/70">{hallOfFame.game}</p>
+            </div>
           </div>
           <p className="text-accent">
             ${" "}
