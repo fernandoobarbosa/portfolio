@@ -149,7 +149,7 @@ export const projects: Project[] = [
     description:
       "A linter/compiler for markdown-based Zettelkasten git repositories, with a focus on quality and maintainability.",
     language: "JavaScript/TypeScript",
-    stars: 0,
+    stars: 7,
     contributions: [
       {
         title: "Fix greetings pipeline",
