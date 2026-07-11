@@ -143,4 +143,18 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    name: "Zettel Lint",
+    url: "https://github.com/zettel-lint/zettel-lint",
+    description:
+      "A linter/compiler for markdown-based Zettelkasten git repositories, with a focus on quality and maintainability.",
+    language: "JavaScript/TypeScript",
+    stars: 0,
+    contributions: [
+      {
+        title: "Fix greetings pipeline",
+        url: "https://github.com/zettel-lint/zettel-lint/pull/568",
+      },
+    ],
+  },
 ];
