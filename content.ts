@@ -33,6 +33,12 @@ export type HallOfFame = {
   trainerCardImage: string;
 };
 
+export type Track = {
+  file: string;
+  title: string;
+  artist: string;
+};
+
 export const profile: Profile = {
   name: "Fernando Barbosa",
   title: "Software Engineer",
@@ -77,8 +83,21 @@ export const achievements: Achievement[] = [
 
 export const hallOfFame: HallOfFame = {
   game: "Pokemon Yellow Legacy",
-  trainerCardImage: "/trainer-card.png",
+  trainerCardImage: "/assets/images/trainer-card.png",
 };
+
+export const tracks: Track[] = [
+  {
+    file: "dewford-emerald.mp3",
+    title: "Dewford Town",
+    artist: "Pokémon Emerald OST",
+  },
+  {
+    file: "fuschia-pokopia.mp3",
+    title: "Fuchsia City",
+    artist: "Pokémon Emerald OST",
+  },
+];
 
 export const projects: Project[] = [
   {
