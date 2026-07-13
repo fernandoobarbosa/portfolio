@@ -83,24 +83,31 @@ Both `Hero.tsx` and `About.tsx` currently render `profile.bio` directly — they
 
 `Nav`, `Hero`, `About`, `Skills`, `Projects`, `Contact`, `Footer` all switch their fixed strings to `t.<section>.<key>` via `useLocale()`. `content.ts`'s `Profile.bio` type changes as above.
 
-## Part 2 — Floating music player
+### Asset reorganization (`public/`)
+
+While scoping this feature, the user already dropped two real `.mp3` files directly into `public/` (`dewford-emerald.mp3`, `fuschia-pokopia.mp3`) and pointed out that `public/` was getting cluttered — it also holds `trainer-card.png` (used by the existing hall-of-fame easter egg) alongside unused default Next.js SVGs. This work also introduces a small structure for that:
+
+- `public/assets/images/` — holds `trainer-card.png` (moved from `public/trainer-card.png`).
+- `public/assets/music/` — holds the `.mp3` track files (moved from `public/`).
+- The unused default Next.js SVGs (`file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`) stay at the root of `public/` — out of scope, not part of this feature.
+- `content.ts`'s existing `hallOfFame.trainerCardImage` path updates from `/trainer-card.png` to `/assets/images/trainer-card.png` accordingly. No other change to the hall-of-fame feature.
 
 ### Data (`content.ts`)
 
 ```ts
 export type Track = {
-  file: string;   // filename under /public/music
+  file: string;   // filename under /public/assets/music
   title: string;
   artist: string;
 };
 
 export const tracks: Track[] = [
-  { file: "track-1.mp3", title: "Track 1", artist: "Unknown Artist" },
-  { file: "track-2.mp3", title: "Track 2", artist: "Unknown Artist" },
+  { file: "dewford-emerald.mp3", title: "Dewford Town", artist: "Pokémon Emerald OST" },
+  { file: "fuschia-pokopia.mp3", title: "Fuchsia City", artist: "Pokémon Emerald OST" },
 ];
 ```
 
-The user will replace these placeholder entries with real titles/artists and drop matching `.mp3` files into `/public/music/` themselves — no code changes needed for future track swaps, matching the existing "all content lives in `content.ts`" convention.
+These are real files the user already added (no placeholders needed for this iteration). Future track swaps still just mean editing this array and adding/removing files under `/public/assets/music/` — no other code changes needed, matching the existing "all content lives in `content.ts`" convention.
 
 ### Component (`components/MusicPlayer.tsx`)
 
@@ -123,7 +130,7 @@ Rendered once from `app/layout.tsx` (outside `<main>`), so it's present and fixe
 
 ### Components touched
 
-New `MusicPlayer.tsx`; `content.ts` gains `Track` type and `tracks` array; `app/layout.tsx` renders `<MusicPlayer />` once.
+New `MusicPlayer.tsx`; `content.ts` gains `Track` type and `tracks` array; `app/layout.tsx` renders `<MusicPlayer />` once; `content.ts`'s `hallOfFame.trainerCardImage` path updates for the `public/assets/` move; `components/Terminal.tsx` is unaffected (it only references `hallOfFame.trainerCardImage`, not a hardcoded path).
 
 ## Out of scope
 
@@ -132,4 +139,4 @@ New `MusicPlayer.tsx`; `content.ts` gains `Track` type and `tracks` array; `app/
 - No translation of project descriptions, contribution titles, or Terminal command lines.
 - No playlist reordering, shuffle, or volume slider — play/pause, prev/next, seek, and mute only.
 - No persistence of play/pause state across page reloads.
-- Real `.mp3` files are not part of this change — placeholders ship; the user supplies real audio files and edits `tracks` afterward.
+- No reorganization of the unused default Next.js SVGs in `public/` — only `trainer-card.png` and the music tracks move into `public/assets/`.
