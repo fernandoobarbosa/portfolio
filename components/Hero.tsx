@@ -1,7 +1,35 @@
+"use client";
+
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
-import { profile, skills, projects } from "@/content";
+import { profile, skills, projects, type Project } from "@/content";
+import {
+  useLocale,
+  useTranslation,
+  type Locale,
+} from "@/components/LocaleProvider";
+
+function getProjectLabel(project: Project, locale: Locale) {
+  if (project.stars > 0) {
+    const unit =
+      locale === "pt"
+        ? project.stars > 1
+          ? "estrelas"
+          : "estrela"
+        : project.stars > 1
+          ? "stars"
+          : "star";
+    return `${project.stars} ${unit}`;
+  }
+  const count = project.contributions.length;
+  return locale === "pt"
+    ? `${count} PR${count > 1 ? "s" : ""} mesclado${count > 1 ? "s" : ""}`
+    : `${count} PR${count > 1 ? "s" : ""} merged`;
+}
 
 export default function Hero() {
+  const { locale } = useLocale();
+  const t = useTranslation();
+
   return (
     <section
       id="hero"
@@ -12,7 +40,7 @@ export default function Hero() {
           className="h-2 w-2 rounded-full bg-accent animate-pulse-dot"
           aria-hidden="true"
         />
-        Open to remote roles · 🇧🇷 {profile.location} · {profile.timezone}
+        {t.hero.openToRemote} · 🇧🇷 {profile.location} · {profile.timezone}
       </div>
       <h1 className="font-mono text-4xl font-bold tracking-tight md:text-6xl">
         {profile.name}
@@ -21,7 +49,7 @@ export default function Hero() {
         {profile.title}
       </h2>
       <p className="max-w-xl text-base text-foreground/60 md:text-lg">
-        {profile.bio}
+        {profile.bio[locale]}
       </p>
       <p className="font-mono text-sm text-foreground/50">
         {skills.join(" · ")}
@@ -31,7 +59,7 @@ export default function Hero() {
           href={`mailto:${profile.email}`}
           className="rounded-md bg-accent px-5 py-3 font-mono text-sm font-semibold text-background transition-colors hover:opacity-90"
         >
-          Email me
+          {t.hero.emailMe}
         </a>
         <a
           href={profile.github}
@@ -54,14 +82,8 @@ export default function Hero() {
       </div>
       <div className="flex flex-wrap gap-x-6 gap-y-2 border-t border-border pt-6 font-mono text-xs text-foreground/40">
         {projects.map((project) => {
-          const label =
-            project.stars > 0
-              ? `${project.stars} star${project.stars > 1 ? "s" : ""}`
-              : `${project.contributions.length} PR${
-                  project.contributions.length > 1 ? "s" : ""
-                } merged`;
-          const display =
-            project.stars > 0 ? `${project.stars}★` : label;
+          const label = getProjectLabel(project, locale);
+          const display = project.stars > 0 ? `${project.stars}★` : label;
           return (
             <span key={project.url}>
               {project.name}{" "}
