@@ -88,14 +88,14 @@ export const hallOfFame: HallOfFame = {
 
 export const tracks: Track[] = [
   {
-    file: "dewford-emerald.mp3",
-    title: "Dewford Town",
-    artist: "Pokémon Emerald OST",
-  },
-  {
     file: "fuschia-pokopia.mp3",
     title: "Withered Wastelands",
     artist: "Pokopia OST",
+  },
+  {
+    file: "dewford-emerald.mp3",
+    title: "Dewford Town",
+    artist: "Pokémon Emerald OST",
   },
 ];
 
