@@ -94,8 +94,8 @@ export const tracks: Track[] = [
   },
   {
     file: "fuschia-pokopia.mp3",
-    title: "Fuchsia City",
-    artist: "Pokémon Emerald OST",
+    title: "Withered Wastelands",
+    artist: "Pokopia OST",
   },
 ];
 
