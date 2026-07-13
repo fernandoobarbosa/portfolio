@@ -15,7 +15,7 @@ export type Project = {
 export type Profile = {
   name: string;
   title: string;
-  bio: string;
+  bio: { en: string; pt: string };
   github: string;
   linkedin: string;
   email: string;
@@ -33,10 +33,19 @@ export type HallOfFame = {
   trainerCardImage: string;
 };
 
+export type Track = {
+  file: string;
+  title: string;
+  artist: string;
+};
+
 export const profile: Profile = {
   name: "Fernando Barbosa",
   title: "Software Engineer",
-  bio: "Back-end developer with 5+ years of experience building scalable systems in Node.js and TypeScript — microservices architecture, Express APIs, and message-driven systems with RabbitMQ. Beyond my day-to-day work, I contribute to open source: 6 merged contributions across 4 public repositories, from CI/CD pipelines to logging infrastructure and code-quality tooling.",
+  bio: {
+    en: "Back-end developer with 5+ years of experience building scalable systems in Node.js and TypeScript — microservices architecture, Express APIs, and message-driven systems with RabbitMQ. Beyond my day-to-day work, I contribute to open source: 6 merged contributions across 4 public repositories, from CI/CD pipelines to logging infrastructure and code-quality tooling.",
+    pt: "Desenvolvedor back-end com mais de 5 anos de experiência construindo sistemas escaláveis em Node.js e TypeScript — arquitetura de microsserviços, APIs em Express e sistemas orientados a mensagens com RabbitMQ. Além do trabalho do dia a dia, contribuo com projetos open source: 6 contribuições mescladas em 4 repositórios públicos, de pipelines de CI/CD a infraestrutura de logging e ferramentas de qualidade de código.",
+  },
   github: "https://github.com/fernandoobarbosa",
   linkedin: "https://www.linkedin.com/in/fernando-barbosa-a790771b8/",
   email: "fernandobarbosa1697@gmail.com",
@@ -74,8 +83,21 @@ export const achievements: Achievement[] = [
 
 export const hallOfFame: HallOfFame = {
   game: "Pokemon Yellow Legacy",
-  trainerCardImage: "/trainer-card.png",
+  trainerCardImage: "/assets/images/trainer-card.png",
 };
+
+export const tracks: Track[] = [
+  {
+    file: "dewford-emerald.mp3",
+    title: "Dewford Town",
+    artist: "Pokémon Emerald OST",
+  },
+  {
+    file: "fuschia-pokopia.mp3",
+    title: "Fuchsia City",
+    artist: "Pokémon Emerald OST",
+  },
+];
 
 export const projects: Project[] = [
   {
