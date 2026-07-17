@@ -179,4 +179,18 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    name: "moizy-open-source-issues",
+    url: "https://github.com/moizycodes/moizy-open-source-issues",
+    description:
+      "An open-source hub for developers to pick issues, solve real tasks, and build their GitHub profile with meaningful PRs.",
+    language: "JavaScript",
+    stars: 9,
+    contributions: [
+      {
+        title: "Feature: Build a Git Ignore Generator CLI",
+        url: "https://github.com/moizycodes/moizy-open-source-issues/pull/141",
+      },
+    ],
+  },
 ];
